@@ -33,7 +33,7 @@ yarn run build
 #### Api
 
 ```sh
-  yarn run start:api
+yarn run start:api
 ```
 
 ---
