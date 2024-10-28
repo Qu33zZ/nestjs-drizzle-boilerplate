@@ -23,6 +23,7 @@ export class Car {
   }
 
   ride() {
+    console.log('Car is riding... 🚕');
     this.ridesCount += 1;
   }
 }
