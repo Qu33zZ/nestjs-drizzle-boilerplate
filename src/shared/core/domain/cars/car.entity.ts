@@ -12,7 +12,7 @@ export class Car {
 
   public toDatabaseModel(): TCarModel {
     return {
-      id: this.id,
+      id: this.id!,
       model: this.model,
       ridesCount: this.ridesCount,
     };

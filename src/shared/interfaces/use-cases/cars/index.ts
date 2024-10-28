@@ -5,11 +5,12 @@ export interface ICreateCarUseCase
   extends IBaseUseCase<{ model: string }, TCarModel> {}
 export const ICreateCarUseCase = Symbol('ICreateCarUseCase');
 
-export interface IDeleteCarUseCase {}
+export interface IDeleteCarUseCase extends IBaseUseCase<{ id: string }, void> {}
 export const IDeleteCarUseCase = Symbol('IDeleteCarUseCase');
 
-export interface IRideCarUseCase {}
+export interface IRideCarUseCase
+  extends IBaseUseCase<{ id: string }, TCarModel> {}
 export const IRideCarUseCase = Symbol('IRideCarUseCase');
 
-export interface IGetCarsUseCase {}
+export interface IGetCarsUseCase extends IBaseUseCase<undefined, TCarModel[]> {}
 export const IGetCarsUseCase = Symbol('IGetCarsUseCase');
