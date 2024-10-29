@@ -1,5 +1,7 @@
 import { CarBaseResponse } from './cars.base-response';
 
 export namespace GetCarsQuery {
-  export class Response extends CarBaseResponse {}
+  export class Response {
+    cars: CarBaseResponse[];
+  }
 }

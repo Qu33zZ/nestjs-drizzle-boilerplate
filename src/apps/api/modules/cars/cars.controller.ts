@@ -44,11 +44,13 @@ export class CarsController {
   }
 
   @Get()
-  @ApiResponse({ type: GetCarsQuery.Response, isArray: true })
-  async getCars(): Promise<GetCarsQuery.Response[]> {
+  @ApiResponse({ type: GetCarsQuery.Response })
+  async getCars(): Promise<GetCarsQuery.Response> {
     const cars = await this._getCarsUseCase.execute();
 
-    return cars.map((car) => ({ ...car }));
+    return {
+      cars: cars.map((car) => ({ ...car })),
+    };
   }
 
   @Delete(':id')
@@ -59,7 +61,7 @@ export class CarsController {
   }
 
   @Post('/:id/ride')
-  @ApiResponse({ type: RideCarCommand.Request })
+  @ApiResponse({ type: RideCarCommand.Response })
   async rideCar(
     @Param('id', new ParseUUIDPipe()) id: RideCarCommand.Request['id'],
   ): Promise<RideCarCommand.Response> {
