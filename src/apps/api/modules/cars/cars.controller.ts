@@ -8,7 +8,6 @@ import {
   ParseUUIDPipe,
   Post,
 } from '@nestjs/common';
-import { CarResponseDTO, CreateCarDTO } from './dto';
 import {
   ICreateCarUseCase,
   IDeleteCarUseCase,
@@ -16,6 +15,12 @@ import {
   IRideCarUseCase,
 } from '@interfaces/use-cases/cars';
 import { ApiResponse } from '@nestjs/swagger';
+import {
+  CreateCarCommand,
+  GetCarsQuery,
+  DeleteCarCommand,
+  RideCarCommand,
+} from '@shared/contracts';
 
 @Controller('cars')
 export class CarsController {
@@ -29,30 +34,39 @@ export class CarsController {
   ) {}
 
   @Post()
-  @ApiResponse({ type: CarResponseDTO })
-  async createCar(@Body() carDto: CreateCarDTO): Promise<CarResponseDTO> {
-    const car = await this._createCarUseCase.execute({ model: carDto.model });
+  @ApiResponse({ type: CreateCarCommand.Response })
+  async createCar(
+    @Body() request: CreateCarCommand.Request,
+  ): Promise<CreateCarCommand.Response> {
+    const car = await this._createCarUseCase.execute({ model: request.model });
+
     return { ...car };
   }
 
   @Get()
-  @ApiResponse({ type: CarResponseDTO, isArray: true })
-  async getCars(): Promise<CarResponseDTO[]> {
+  @ApiResponse({ type: GetCarsQuery.Response })
+  async getCars(): Promise<GetCarsQuery.Response> {
     const cars = await this._getCarsUseCase.execute();
-    return cars.map((car) => ({ ...car }));
+
+    return {
+      cars: cars.map((car) => ({ ...car })),
+    };
   }
 
   @Delete(':id')
-  async deleteCar(@Param('id', new ParseUUIDPipe()) id: string): Promise<void> {
+  async deleteCar(
+    @Param('id', new ParseUUIDPipe()) id: DeleteCarCommand.Request['id'],
+  ): Promise<void> {
     await this._deleteCarUseCae.execute({ id });
   }
 
   @Post('/:id/ride')
-  @ApiResponse({ type: CarResponseDTO })
+  @ApiResponse({ type: RideCarCommand.Response })
   async rideCar(
-    @Param('id', new ParseUUIDPipe()) id: string,
-  ): Promise<CarResponseDTO> {
+    @Param('id', new ParseUUIDPipe()) id: RideCarCommand.Request['id'],
+  ): Promise<RideCarCommand.Response> {
     const car = await this._rideCarUseCase.execute({ id });
+
     return {
       ...car,
     };
