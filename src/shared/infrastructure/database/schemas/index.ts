@@ -1,6 +1,6 @@
-import * as walletsSchema from './cars';
+import * as carsSchema from './cars';
 
-export const databaseSchema = { ...walletsSchema };
+export const databaseSchema = { ...carsSchema };
 
 export type TDatabaseSchema = typeof databaseSchema;
 

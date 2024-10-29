@@ -1,4 +1,4 @@
-export enum EAppEnvironment {
+export enum AppEnvironment {
   PRODUCTION = 'PRODUCTION',
   DEVELOPMENT = 'DEVELOPMENT',
   STAGING = 'STAGING',
