@@ -17,8 +17,8 @@ import {
 } from '@interfaces/use-cases/cars';
 import { ApiResponse } from '@nestjs/swagger';
 
-@Controller('cars')
-export class CarsController {
+@Controller('v1/cars')
+export class CarsControllerV1 {
   constructor(
     @Inject(ICreateCarUseCase)
     private readonly _createCarUseCase: ICreateCarUseCase,
