@@ -22,8 +22,8 @@ import {
   RideCarCommand,
 } from '@shared/contracts';
 
-@Controller('cars')
-export class CarsController {
+@Controller('v1/cars')
+export class CarsControllerV1 {
   constructor(
     @Inject(ICreateCarUseCase)
     private readonly _createCarUseCase: ICreateCarUseCase,
